@@ -12,7 +12,18 @@ inside = []
 
 play_box = []
 
-size = (int(input("Choose box size:\n1.4x4\n2.6x6\n3.8x8\npick:")) + 1) * 2
+while True:
+    clear()
+    print("Welcome to Minesweeper!")
+
+    try:
+        size = (int(input("Choose box size:\n1.4x4\n2.6x6\n3.8x8\npick:")) + 1) * 2
+        if size not in [4, 6, 8]:
+            raise ValueError
+    except ValueError:
+        continue
+
+    break
 
 for i in range(size):
     play_box.append([])
@@ -74,7 +85,7 @@ def win():
     
     for i in range(size):
         for j in range(size):
-            if inside[i][j] != box[3] and play_box[i][j] == box[4]:
+            if play_box[i][j] != box[3] and inside[i][j] == box[4]:
                 iswinning = False
                 
     return iswinning
@@ -89,7 +100,13 @@ def boom():
             #       play_box(indeks saat ini) => bomb
             
         
-#loop
+
+# DEBUG
+for i in range(size):
+    for j in range(size):
+        inside[i][j] = box[0]
+inside[0][0] = box[1]
+
 while True:
     clear()
     try:
@@ -147,8 +164,9 @@ while True:
                 input("Already opened")
         
         if win():
-            board()
+            clear()
             boom()
+            board()
             print("You win")
             break
         
