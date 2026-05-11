@@ -1,20 +1,22 @@
 import os
 import random
 
-from matplotlib.pylab import diff, size
+def clear():
+    os.system("cls" if os.name == "nt" else "clear")
 
 box = ["💣", "⬛" , "💥" , "🚩", "⬜","🟨"]
 numbers = ["0️⃣ ","1️⃣ ","2️⃣ ","3️⃣ ","4️⃣ ","5️⃣ ","6️⃣ ","7️⃣ ","8️⃣ "]
 
 
-inside = [[],[],[],[],[]]
+inside = []
 
 play_box = []
 
-size = int(input("Choose box size:\n1.4x4\n2.6x6\n3.8x8\npick:")) + 2
+size = (int(input("Choose box size:\n1.4x4\n2.6x6\n3.8x8\npick:")) + 1) * 2
 
 for i in range(size):
     play_box.append([])
+    inside.append([])
 
 dirs = [
     (-1,-1), (-1,0), (-1,1),
@@ -42,7 +44,7 @@ def board():
     
     # header kolom
     for i in range(size):
-        print(f" C{i+1} ", end="  ")
+        print(f" C{i+1} ", end=" ")
     print()
 
     # isi board
@@ -89,6 +91,7 @@ def boom():
         
 #loop
 while True:
+    clear()
     try:
         board()
         print("1. Open a box\n2. Flag a box/Remove flag")
@@ -107,7 +110,6 @@ while True:
             
             if play_box[baris][kolom] != box[4]:
                 input("Must choose an empty box!")
-                os.system("cls")
                 continue
             
             elif inside[baris][kolom] == box[0]:
@@ -116,7 +118,7 @@ while True:
                         if inside[i][j] == box[0]:
                             play_box[i][j] = box[0]
                 play_box[baris][kolom] = box[2]
-                os.system("cls")
+                clear()
                 board()
                 print("Game Over! It's a mine. 💣 ")
                 break
@@ -124,7 +126,7 @@ while True:
             elif inside[baris][kolom] == box[1]:
                 check(baris,kolom)
                 input("Not a mine!")
-                os.system("cls")
+
             
          #flag
         elif choice == 2:
@@ -143,7 +145,6 @@ while True:
                 play_box[baris][kolom] = box[4]
             else:
                 input("Already opened")
-            os.system("cls")
         
         if win():
             board()
@@ -152,10 +153,10 @@ while True:
             break
         
     except ValueError:
-        os.system("cls")
+        continue
     except:
         input("invalid input")
-        os.system("cls")
+        continue
         
     
     
