@@ -102,10 +102,10 @@ def boom():
         
 
 # DEBUG
-for i in range(size):
-    for j in range(size):
-        inside[i][j] = box[0]
-inside[0][0] = box[1]
+# for i in range(size):
+#     for j in range(size):
+#         inside[i][j] = box[0]
+# inside[0][0] = box[1]
 
 while True:
     clear()
